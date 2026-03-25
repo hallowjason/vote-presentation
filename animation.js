@@ -52,8 +52,8 @@ let starsOpacity = 1;
 let animFrame;
 
 function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = document.documentElement.clientWidth;
+  canvas.height = document.documentElement.clientHeight;
 }
 
 function createStars() {
