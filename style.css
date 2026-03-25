@@ -831,6 +831,104 @@ h1.p1-title {
   100% { transform: scale(0);    opacity: 0; }
 }
 
+/* ═══════════════════════════════════════════
+   BOTTOM SLIDE NAVIGATION BAR
+═══════════════════════════════════════════ */
+
+/* Invisible hover trigger strip at the very bottom */
+#slide-nav-trigger {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  z-index: 210;
+  pointer-events: auto;
+}
+
+/* Container keeps panel at bottom-center */
+#slide-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 209;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+/* Glass pill panel */
+#slide-nav-panel {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px 13px;
+  background: rgba(4,4,14,0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-bottom: none;
+  border-radius: 18px 18px 0 0;
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.22, 0.61, 0.36, 1);
+  max-width: 92vw;
+  flex-wrap: wrap;
+  row-gap: 6px;
+  justify-content: center;
+}
+
+#slide-nav-panel.visible {
+  transform: translateY(0);
+}
+
+/* Individual slide dots */
+.nav-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.nav-dot:hover {
+  background: rgba(255,255,255,0.65);
+  transform: scale(1.55);
+}
+
+.nav-dot.active {
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(201,169,110,0.55);
+  transform: scale(1.3);
+}
+
+/* Slide number tooltip above each dot */
+.nav-dot::after {
+  content: attr(data-num);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  color: rgba(255,255,255,0.55);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  line-height: 1;
+}
+
+.nav-dot:hover::after {
+  opacity: 1;
+}
+
 /* Ambient glow beneath the mirror */
 .mirror-glow {
   position: absolute;

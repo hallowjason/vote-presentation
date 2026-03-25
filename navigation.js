@@ -62,6 +62,7 @@ function goToSlide(idx) {
   progressBar.style.width = pct + '%';
   slideCounter.textContent = pad(current + 1) + ' / ' + pad(total);
 
+  updateNavDots(idx);
   setTimeout(() => { isTransitioning = false; }, 650);
 }
 
@@ -93,6 +94,38 @@ document.addEventListener('wheel', e => {
   if (e.deltaY > 0) next(); else prev();
   setTimeout(() => { wheelDebounce = false; }, 320);
 }, { passive: true });
+
+// ─── Bottom navigation bar ───
+const slideNavPanel = document.getElementById('slide-nav-panel');
+const slideNavTrigger = document.getElementById('slide-nav-trigger');
+let navHideTimer;
+
+function showNav() {
+  clearTimeout(navHideTimer);
+  slideNavPanel.classList.add('visible');
+}
+function hideNav() {
+  navHideTimer = setTimeout(() => slideNavPanel.classList.remove('visible'), 400);
+}
+
+slideNavTrigger.addEventListener('mouseenter', showNav);
+slideNavTrigger.addEventListener('mouseleave', hideNav);
+slideNavPanel.addEventListener('mouseenter', showNav);
+slideNavPanel.addEventListener('mouseleave', hideNav);
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'nav-dot';
+  dot.dataset.num = pad(i + 1);
+  dot.addEventListener('click', () => goToSlide(i));
+  slideNavPanel.appendChild(dot);
+});
+
+function updateNavDots(idx) {
+  slideNavPanel.querySelectorAll('.nav-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === idx);
+  });
+}
 
 // Init first slide background
 goToSlide(0);
