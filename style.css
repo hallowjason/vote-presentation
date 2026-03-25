@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&family=Noto+Sans+TC:wght@300;400&display=swap');
 
 /* 投影縮放倍率 — 可依現場調整（1.0 = 原始大小） */
-html { zoom: 1.2; }
+html { zoom: 1.0; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
