@@ -39,7 +39,7 @@ const groupColors = {
 const groupSizes = { 1: 6, 2: 6, 3: 6, 4: 10 };
 
 // Principle id → slide index mapping for the interactive constellation (P7-new, idx=6)
-const principleSlideMap = { 1: 7, 4: 9, 2: 10, 3: 14, 5: 15, 6: 16 };
+const principleSlideMap = { 1: 7, 4: 9, 2: 10, 3: 14, 5: 15, 6: 16, 10: 17 };
 
 // ═══════════════════════════════════════════════════════
 //  STARS CANVAS

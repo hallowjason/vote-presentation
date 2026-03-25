@@ -28,45 +28,49 @@ function goToSlide(idx) {
   if (idx < 0 || idx >= total || isTransitioning) return;
   isTransitioning = true;
 
-  const prev = slides[current];
-  const next = slides[idx];
+  try {
+    const prev = slides[current];
+    const next = slides[idx];
 
-  prev.classList.remove('active');
-  current = idx;
-  next.classList.add('active');
+    prev.classList.remove('active');
+    current = idx;
+    next.classList.add('active');
 
-  // Reset dialogue step progression when entering any slide
-  next.querySelectorAll('.dialogue-row').forEach(r => r.classList.remove('revealed'));
+    // Reset dialogue step progression on both source and destination slides
+    prev.querySelectorAll('.dialogue-row').forEach(r => r.classList.remove('revealed'));
+    next.querySelectorAll('.dialogue-row').forEach(r => r.classList.remove('revealed'));
 
-  // Reset anim items so stagger re-triggers
-  const animItems = next.querySelectorAll('.anim-item');
-  animItems.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(18px)'; });
-  next.offsetHeight; // force reflow
-  animItems.forEach(el => { el.style.opacity = ''; el.style.transform = ''; });
+    // Reset anim items so stagger re-triggers
+    const animItems = next.querySelectorAll('.anim-item');
+    animItems.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(18px)'; });
+    next.offsetHeight; // force reflow
+    animItems.forEach(el => { el.style.opacity = ''; el.style.transform = ''; });
 
-  // Update background
-  const bg = next.dataset.bg;
-  if (bg === 'city') {
-    cityLayer.classList.add('visible');
-    starsBg.classList.remove('visible');
-    starsOpacity = 0.6;
-  } else if (bg === 'stars') {
-    cityLayer.classList.remove('visible');
-    starsBg.classList.add('visible');
-    starsOpacity = 1.0;
-  } else {
-    cityLayer.classList.remove('visible');
-    starsBg.classList.remove('visible');
-    starsOpacity = 0.35;
+    // Update background
+    const bg = next.dataset.bg;
+    if (bg === 'city') {
+      cityLayer.classList.add('visible');
+      starsBg.classList.remove('visible');
+      starsOpacity = 0.6;
+    } else if (bg === 'stars') {
+      cityLayer.classList.remove('visible');
+      starsBg.classList.add('visible');
+      starsOpacity = 1.0;
+    } else {
+      cityLayer.classList.remove('visible');
+      starsBg.classList.remove('visible');
+      starsOpacity = 0.35;
+    }
+
+    // Progress bar + slide counter
+    const pct = ((current) / (total - 1)) * 100;
+    progressBar.style.width = pct + '%';
+    slideCounter.textContent = pad(current + 1) + ' / ' + pad(total);
+
+    updateNavDots(idx);
+  } finally {
+    setTimeout(() => { isTransitioning = false; }, 650);
   }
-
-  // Progress bar + slide counter
-  const pct = ((current) / (total - 1)) * 100;
-  progressBar.style.width = pct + '%';
-  slideCounter.textContent = pad(current + 1) + ' / ' + pad(total);
-
-  updateNavDots(idx);
-  setTimeout(() => { isTransitioning = false; }, 650);
 }
 
 function next() {
