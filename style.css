@@ -927,6 +927,8 @@ h1.p1-title {
 
 .nav-dot:hover::after {
   opacity: 1;
+  /* counteract parent scale so number stays at intended size */
+  transform: translateX(-50%) scale(0.645);
 }
 
 /* Ambient glow beneath the mirror */

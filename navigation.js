@@ -113,18 +113,20 @@ slideNavTrigger.addEventListener('mouseleave', hideNav);
 slideNavPanel.addEventListener('mouseenter', showNav);
 slideNavPanel.addEventListener('mouseleave', hideNav);
 
+const navDots = [];
+const navFragment = document.createDocumentFragment();
 slides.forEach((_, i) => {
   const dot = document.createElement('div');
   dot.className = 'nav-dot';
   dot.dataset.num = pad(i + 1);
   dot.addEventListener('click', () => goToSlide(i));
-  slideNavPanel.appendChild(dot);
+  navDots.push(dot);
+  navFragment.appendChild(dot);
 });
+slideNavPanel.appendChild(navFragment);
 
 function updateNavDots(idx) {
-  slideNavPanel.querySelectorAll('.nav-dot').forEach((dot, i) => {
-    dot.classList.toggle('active', i === idx);
-  });
+  navDots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
 }
 
 // Init first slide background
