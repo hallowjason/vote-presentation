@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>現代修道人的核心理念</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Cursor glow -->
+<div class="cursor-glow" id="cursor-glow"></div>
+
+<!-- Background layers -->
+<!-- Dawn sky for stars slides -->
+<div id="stars-bg"></div>
+<canvas id="stars-canvas"></canvas>
+
+<div id="city-layer">
+  <div class="city-sky"></div>
+  <div class="city-gradient"></div>
+  <svg id="city-svg" viewBox="0 0 1440 280" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cityFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1a1228"/>
+        <stop offset="100%" stop-color="#0d0a18"/>
+      </linearGradient>
+    </defs>
+    <path d="M0,280 V248 H40 V242 H80 V235 H120 V228 H160 V220 H200 V214 H230 V208 H260 V202 H290 V196 H320 V188 H350 V180 H380 V170 H410 V158 H435 V145 H455 V130 H470 V115 H482 V100 H492 V85 H500 V72 H506 V60 H511 V50 H515 V40 H518 V30 H521 V20 H524 V12 H527 V6 H530 V2 H533 V0 H537 V4 H540 V10 H543 V18 H546 V28 H550 V40 H556 V55 H563 V70 H572 V85 H583 V100 H596 V88 H610 V75 H624 V60 H634 V45 H642 V32 H649 V20 H654 V10 H659 V3 H663 V0 H667 V3 H671 V10 H675 V20 H680 V32 H688 V48 H698 V65 H710 V82 H724 V95 H740 V105 H756 V115 H772 V125 H790 V138 H810 V150 H835 V162 H862 V172 H892 V180 H924 V188 H958 V195 H994 V202 H1030 V210 H1070 V218 H1115 V225 H1165 V232 H1220 V238 H1280 V243 H1340 V248 H1390 V252 H1440 V280 Z" fill="url(#cityFill)"/>
+    <g id="city-windows"></g>
+  </svg>
+</div>
+
+<!-- Progress bar -->
+<div id="progress-bar" style="width: 0%"></div>
+
+<!-- Slide counter -->
+<div id="slide-counter">01 / 18</div>
+
+<!-- Nav buttons -->
+<button class="nav-btn" id="btn-prev">←</button>
+<button class="nav-btn" id="btn-next">→</button>
+
+<!-- ════════════════════════════════════════
+     SLIDES
+════════════════════════════════════════ -->
+<div id="slides-wrapper">
+
+  <!-- P1: Opening -->
+  <div class="slide active" data-bg="city" data-idx="0">
+    <div class="glass p1-card">
+      <p class="t-chapter anim-item">序章 · Prologue</p>
+      <h1 class="p1-title anim-item">現代修道人的核心理念</h1>
+      <p class="t-main-en anim-item">Core Principles of the Modern Cultivators</p>
+      <div class="divider-center anim-item"></div>
+      <p class="t-sub-zh anim-item">十條綱目，不是你的成績單</p>
+      <p class="t-sub-en anim-item">Ten Guidelines — Not a Report Card</p>
+    </div>
+  </div>
+
+  <!-- P2: Question -->
+  <div class="slide" data-bg="city" data-idx="1">
+    <div class="p2-content">
+      <p class="t-main-zh serif anim-item" style="font-size: clamp(24px,4vw,52px);">
+        你有沒有教過一件——<br>
+        <span class="bold">自己還沒完全做到</span>的事？
+      </p>
+      <p class="t-main-en anim-item" style="margin-top: 28px; font-size: clamp(14px,1.6vw,20px);">
+        Have you ever taught something<br>you hadn't fully mastered yourself?
+      </p>
+    </div>
+  </div>
+
+  <!-- P3: Constellation Intro (idx=2) -->
+  <div class="slide constellation-slide" data-bg="stars" data-idx="2">
+    <div class="constellation-header">
+      <p class="t-chapter anim-item">第一章 · 十條是什麼 &nbsp;/&nbsp; Chapter 1 · The Ten Principles</p>
+      <p class="anim-item" style="font-family:'Noto Serif TC',serif; font-size:clamp(16px,2vw,22px); color:rgba(255,255,255,0.75); margin-top:4px;">
+        四大類別 · Four Categories
+      </p>
+    </div>
+    <div class="constellation-container anim-item" id="constellation-p3">
+      <svg class="constellation-svg" id="svg-p3" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <filter id="glow-filter">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <!-- "道" character watermark -->
+        <text x="500" y="275" text-anchor="middle" dominant-baseline="middle"
+          font-family="Noto Serif TC, serif" font-size="180" font-weight="200"
+          fill="rgba(255,255,255,0.04)">道</text>
+        <!-- Background star layer (100+ tiny stars) -->
+        <g id="bg-stars-p3" class="bg-star-layer"></g>
+        <!-- Mid-ground star layer (50 stars) -->
+        <g id="mid-stars-p3" class="mid-star-layer"></g>
+        <!-- Constellation lines -->
+        <g id="lines-p3" class="constellation-lines"></g>
+        <!-- Constellation stars (foreground) -->
+        <g id="stars-p3" class="constellation-stars"></g>
+      </svg>
+      <div class="star-tooltip" id="tooltip-p3">
+        <div class="star-tooltip-zh" id="tooltip-p3-zh"></div>
+        <div class="star-tooltip-en" id="tooltip-p3-en"></div>
+      </div>
+      <!-- Category chips — clickable -->
+      <div class="category-chip clickable-chip ice anim-item" data-target="7" style="top:8%; left:4%;">内在心性 · Inner Virtue →</div>
+      <div class="category-chip clickable-chip gold anim-item" data-target="9" style="top:8%; right:4%;">個人紀律 · Discipline →</div>
+      <div class="category-chip clickable-chip lavender anim-item" data-target="10" style="bottom:8%; left:28%; transform:translateX(-50%);">團隊倫理 · Team Ethics →</div>
+      <div class="category-chip clickable-chip anim-item" data-target="11" style="top:44%; left:22%; color:rgba(255,255,255,0.8);">驅動力 · Driving Force →</div>
+      <!-- Skip/continue button -->
+      <div style="position:absolute; bottom:0px; right:0px;">
+        <button class="skip-btn" id="btn-skip">繼續按順序瀏覽 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- P4: Dark reveal -->
+  <div class="slide" data-bg="dark" data-idx="3">
+    <div class="p4-content">
+      <p class="t-main-zh serif anim-item" style="font-size:clamp(22px,3.8vw,50px); color:rgba(255,255,255,0.72);">
+        如果這十條你全都做到了——
+      </p>
+      <p class="t-main-zh serif anim-item gold" style="font-size:clamp(24px,4vw,52px); margin-top:20px;">
+        你就不會在這裡了。
+      </p>
+      <p class="t-main-en anim-item" style="margin-top:32px; font-size:clamp(13px,1.4vw,17px);">
+        If you had already mastered all ten,<br>you wouldn't still be here.
+      </p>
+    </div>
+  </div>
+
+  <!-- P5: Mirror — elegant mirror with camera-on iris reveal -->
+  <div class="slide" data-bg="dark" data-idx="4" style="padding:clamp(20px,4vw,60px);">
+    <div style="display:flex; align-items:center; gap:clamp(24px,5vw,72px); width:100%; max-width:1080px; height:80vh;">
+      <!-- Left: Elegant Mirror -->
+      <div class="anim-item" style="flex:0 0 auto; display:flex; align-items:center; justify-content:center; height:100%;">
+        <div class="mirror-wrap">
+          <div class="mirror-outer">
+            <div class="mirror-glass">
+              <div class="mirror-highlight-main"></div>
+              <div class="mirror-highlight-soft"></div>
+              <div class="mirror-you">你</div>
+              <div class="mirror-shimmer"></div>
+              <div class="mirror-iris"></div>
+            </div>
+          </div>
+          <div class="mirror-glow"></div>
+        </div>
+      </div>
+      <!-- Right: Text -->
+      <div class="glass anim-item" style="flex:1; padding:clamp(24px,3vw,44px);">
+        <p class="story-line anim-item">這十條不是考卷。</p>
+        <p class="story-line anim-item" style="font-size:clamp(18px,2.2vw,28px); margin-top:12px; font-family:'Noto Serif TC',serif; font-weight:300;">是一面鏡子——</p>
+        <p class="story-line anim-item">讓你知道，你現在站在哪裡。</p>
+        <div class="story-en anim-item">
+          These ten principles aren't a test.<br>
+          They're a mirror —<br>
+          showing you exactly where you stand.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P6: Let's look -->
+  <div class="slide" data-bg="city" data-idx="5">
+    <div class="p2-content">
+      <p class="t-main-zh serif anim-item" style="font-size:clamp(26px,4.5vw,58px);">
+        那我們就來——<br>
+        照一次鏡子。
+      </p>
+      <p class="t-main-en anim-item" style="margin-top:28px;">Let's take a look.</p>
+    </div>
+  </div>
+
+  <!-- P7-MAP: Interactive Constellation (idx=6) — click a star to enter its story -->
+  <div class="slide constellation-slide" data-bg="stars" data-idx="6">
+    <div class="constellation-header">
+      <p class="t-chapter anim-item">選擇一條，進入它的故事 &nbsp;/&nbsp; Pick a Principle to Explore</p>
+      <p class="anim-item" style="font-family:'Noto Serif TC',serif; font-size:clamp(14px,1.8vw,20px); color:rgba(255,255,255,0.6); margin-top:4px;">
+        點擊發光的星進入故事 · Click a star to enter its story
+      </p>
+    </div>
+    <div class="constellation-container anim-item" id="constellation-p7">
+      <svg class="constellation-svg" id="svg-p7" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <filter id="glow-filter-p7">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <text x="500" y="275" text-anchor="middle" dominant-baseline="middle"
+          font-family="Noto Serif TC, serif" font-size="180" font-weight="200"
+          fill="rgba(255,255,255,0.04)">道</text>
+        <g id="bg-stars-p7" class="bg-star-layer"></g>
+        <g id="mid-stars-p7" class="mid-star-layer"></g>
+        <g id="lines-p7" class="constellation-lines"></g>
+        <g id="stars-p7" class="constellation-stars"></g>
+      </svg>
+      <div class="star-tooltip" id="tooltip-p7">
+        <div class="star-tooltip-zh" id="tooltip-p7-zh"></div>
+        <div class="star-tooltip-en" id="tooltip-p7-en"></div>
+      </div>
+      <div class="category-chip ice anim-item" style="top:8%; left:4%;">内在心性 · Inner Virtue</div>
+      <div class="category-chip gold anim-item" style="top:8%; right:4%;">個人紀律 · Discipline</div>
+      <div class="category-chip lavender anim-item" style="bottom:8%; left:28%; transform:translateX(-50%);">團隊倫理 · Team Ethics</div>
+      <div class="category-chip anim-item" style="top:44%; left:22%; color:rgba(255,255,255,0.8);">驅動力 · Driving Force</div>
+    </div>
+  </div>
+
+  <!-- P8: 戒慎驕矜 (idx=7, group1 target) -->
+  <div class="slide story-slide" data-bg="city" data-idx="7">
+    <div class="story-layout">
+      <div class="principle-label anim-item">
+        <div class="principle-number">Principle 01</div>
+        <div class="principle-zh">戒慎驕矜</div>
+        <div class="principle-en">Guard Against Arrogance</div>
+      </div>
+      <div>
+        <div class="glass story-card">
+          <p class="story-line anim-item">我在道場時，內心有一個底層的念頭：</p>
+          <p class="story-line anim-item bold gold" style="font-size:clamp(16px,2vw,22px); margin-top:6px;">我想被看見。</p>
+          <div class="story-spacer anim-item"></div>
+          <p class="story-line anim-item">這不是罪。這是人之常情。</p>
+          <p class="story-line anim-item">可是，當「想被看見」的念頭太強——</p>
+          <p class="story-line anim-item">我開始找不到，真正的自己在哪裡。</p>
+          <div class="story-en anim-item">
+            I had this underlying desire — to be seen.<br>
+            It's not wrong. It's human.<br>
+            But when the need to be seen became too strong,<br>
+            I lost track of who I truly was.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:20px; left:28px;">
+      <button class="skip-btn" onclick="goToSlide(6)" style="opacity:0.65; font-size:13px;">← 返回星群圖</button>
+    </div>
+  </div>
+
+  <!-- P9: 廣闊的胸襟 (idx=8, group1 target continues) -->
+  <div class="slide story-slide" data-bg="city" data-idx="8">
+    <div class="story-layout">
+      <div class="principle-label anim-item">
+        <div class="principle-number">Principle 04</div>
+        <div class="principle-zh">廣闊的胸襟</div>
+        <div class="principle-en">A Generous Heart</div>
+      </div>
+      <div>
+        <div class="glass story-card">
+          <p class="story-line anim-item">曾經跟我一起起跑的人，</p>
+          <p class="story-line anim-item">現在已經在很多地方超越我了。</p>
+          <div class="story-spacer anim-item"></div>
+          <p class="story-line anim-item">每次看到他們的成果，</p>
+          <p class="story-line anim-item">我說不出來我能真正為他們高興。</p>
+          <div class="story-spacer anim-item"></div>
+          <p class="story-line anim-item">這一條，我到現在還做得很不夠。</p>
+          <div class="story-en anim-item">
+            Those who started alongside me have surpassed me in many ways.<br>
+            When I see their achievements, I can't honestly say I'm truly happy for them.<br>
+            This is one principle I still fall far short of.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:20px; left:28px;">
+      <button class="skip-btn" onclick="goToSlide(6)" style="opacity:0.65; font-size:13px;">← 返回星群圖</button>
+    </div>
+  </div>
+
+  <!-- P10: 堅守原則 (idx=9, group2 target) -->
+  <div class="slide story-slide" data-bg="city" data-idx="9">
+    <div class="story-layout">
+      <div class="principle-label anim-item">
+        <div class="principle-number">Principle 02</div>
+        <div class="principle-zh">堅守原則</div>
+        <div class="principle-en">Hold Fast to Principles</div>
+      </div>
+      <div>
+        <div class="glass story-card">
+          <p class="story-line anim-item">疫情後，我換了一份全新的工作，</p>
+          <p class="story-line anim-item">進入完全陌生的領域，從頭累積硬實力。</p>
+          <p class="story-line anim-item" style="color:var(--text-dim); font-size:clamp(12px,1.3vw,15px);">人際相處、行銷、公關、電商、AI開發——</p>
+          <p class="story-line anim-item">花了比別人更多的時間和力氣。</p>
+          <div class="story-spacer anim-item"></div>
+          <p class="story-line anim-item">但在這條路上，我從來沒有懷疑過——</p>
+          <p class="story-line anim-item bold gold">修道，是我這輩子一定要做的事。</p>
+          <p class="story-line anim-item" style="color:var(--text-dim);">不論用什麼方式。</p>
+          <div class="story-en anim-item">
+            After the pandemic I started from scratch in a new field.<br>
+            It took far more time and effort than others.<br>
+            But through it all, I never doubted:<br>
+            <em>This path — it's what I'm here to do.</em> No matter the form.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:20px; left:28px;">
+      <button class="skip-btn" onclick="goToSlide(6)" style="opacity:0.65; font-size:13px;">← 返回星群圖</button>
+    </div>
+  </div>
+
+  <!-- P11: 各居其要 (idx=10, group3 target) -->
+  <div class="slide story-slide" data-bg="city" data-idx="10">
+    <div class="story-layout">
+      <div class="principle-label anim-item">
+        <div class="principle-number">Principle 03</div>
+        <div class="principle-zh">各居其要，扶圓補缺</div>
+        <div class="principle-en">Know Your Role, Fill the Gaps</div>
+      </div>
+      <div>
+        <div class="glass story-card">
+          <p class="story-line anim-item">當我看到有人比我更適合站在那個位置，</p>
+          <p class="story-line anim-item">我會退開，讓他們好好發揮。</p>
+          <div class="story-spacer anim-item"></div>
+          <p class="story-line anim-item">這樣的選擇，讓我失去了一些東西。</p>
+          <p class="story-line anim-item">但道場需要的，</p>
+          <p class="story-line anim-item">不是一個永遠站在舞台上的人——</p>
+          <p class="story-line anim-item bold ice">而是能夠持續長久運作的人。</p>
+          <div class="story-en anim-item">
+            When I see someone better suited for a role, I step back.<br>
+            That choice has cost me things.<br>
+            But what the practice needs isn't someone always on stage —<br>
+            it's someone who can keep showing up, year after year.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:20px; left:28px;">
+      <button class="skip-btn" onclick="goToSlide(6)" style="opacity:0.65; font-size:13px;">← 返回星群圖</button>
+    </div>
+  </div>
+
+  <!-- P12: Bridge (idx=11, group4 target) -->
+  <div class="slide story-slide" data-bg="city" data-idx="11">
+    <div class="story-layout">
+      <div class="principle-label anim-item">
+        <div class="principle-number">橋樑 · Bridge</div>
+        <div class="principle-zh" style="color:var(--ice);">在世界與道場之間</div>
+        <div class="principle-en">Between the World and the Practice</div>
+      </div>
+      <div>
+        <div class="glass story-card">
+          <p class="story-line anim-item">這幾年我去到外面的世界，</p>
+          <p class="story-line anim-item">不是因為我想離開。</p>
+          <div class="story-spacer anim-item"></div>
+          <p class="story-line anim-item">是因為我想把資源帶回來。</p>
+          <div class="story-spacer anim-item"></div>
+          <p class="story-line anim-item">讓外面的世界和道場之間，</p>
+          <p class="story-line anim-item">有一個<span class="bold gold">橋樑</span>。</p>
+          <div class="story-en anim-item">
+            These years I went out into the world —<br>
+            not because I wanted to leave.<br>
+            Because I wanted to bring resources back.<br>
+            To build a <em>bridge</em> between the world outside and the practice within.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:20px; left:28px;">
+      <button class="skip-btn" onclick="goToSlide(6)" style="opacity:0.65; font-size:13px;">← 返回星群圖</button>
+    </div>
+  </div>
+
+  <!-- P13: 對自己負責任 (idx=12, group2) -->
+  <div class="slide story-slide" data-bg="city" data-idx="12">
+    <div class="story-layout">
+      <div class="principle-label anim-item">
+        <div class="principle-number">Principle 06</div>
+        <div class="principle-zh">對自己負責任</div>
+        <div class="principle-en">Take Responsibility for Yourself</div>
+      </div>
+      <div>
+        <div class="glass story-card">
+          <p class="story-line anim-item" style="font-size:clamp(12px,1.3vw,15px); color:rgba(255,255,255,0.55); font-style:italic; line-height:1.9;">
+            「東方人造罪，念佛求生西方；<br>西方人造罪，念佛求生何國？」
+          </p>
+          <p class="story-line anim-item" style="font-size:clamp(11px,1.1vw,13px); color:var(--text-dim); margin-bottom:2px;">— 六祖壇經</p>
+          <div class="story-spacer anim-item"></div>
+          <p class="story-line anim-item">求道之後，我有一個毛病：</p>
+          <p class="story-line anim-item bold gold">會不自覺地立下沒辦法實現的承諾。</p>
+          <p class="story-line anim-item" style="color:var(--text-dim); font-size:clamp(12px,1.3vw,15px);">每年的愿力、說好要錄的教學影片……</p>
+          <p class="story-line anim-item" style="color:var(--text-dim); font-size:clamp(12px,1.3vw,15px);">我總想著「之後再做」。</p>
+          <div class="story-spacer anim-item"></div>
+          <p class="story-line anim-item">真正的人才，不把希望寄託於未來或遠方——</p>
+          <p class="story-line anim-item bold ice">有能量，現在就做。狀態差，就好好休息——</p>
+          <p class="story-line anim-item" style="color:var(--text-dim); font-size:clamp(12px,1.3vw,15px);">但在行事曆留下紀錄，給未來指定時段的自己。</p>
+          <div class="story-en anim-item">
+            After finding the path, I had a habit: making promises I couldn't keep.<br>
+            Annual vows. Videos I said I'd record. Always: "I'll do it later."<br>
+            A person of real substance doesn't defer hope to the future.<br>
+            If you have energy — act now.<br>
+            If you're depleted — rest, and block specific time in your calendar.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:20px; left:28px;">
+      <button class="skip-btn" onclick="goToSlide(6)" style="opacity:0.65; font-size:13px;">← 返回星群圖</button>
+    </div>
+  </div>
+
+  <!-- P14: Still on the path -->
+  <div class="slide" data-bg="city" data-idx="13">
+    <div class="path-content">
+      <p class="anim-item" style="font-size:clamp(13px,1.4vw,16px); color:var(--text-dim); margin-bottom:16px;">我雖然是講師。</p>
+      <p class="t-main-zh serif anim-item" style="font-size:clamp(20px,3vw,38px);">但這十條，我沒有全部做到。</p>
+      <p class="anim-item" style="font-size:clamp(13px,1.4vw,16px); color:var(--text-dim); margin:16px 0;">我也不確定我什麼時候能做到。</p>
+      <p class="t-main-zh serif anim-item" style="font-size:clamp(22px,3.5vw,46px); margin-top:8px;">我只知道我還在路上——</p>
+      <p class="t-main-zh serif anim-item gold bold" style="font-size:clamp(22px,3.5vw,46px);">跟你一樣。</p>
+      <p class="t-main-en anim-item" style="margin-top:28px;">I may be the teacher here.<br>But I haven't mastered all ten either.<br>I only know I'm still on the path — just like you.</p>
+    </div>
+  </div>
+
+  <!-- P13: Constellation — audience reflection -->
+  <div class="slide constellation-slide" data-bg="stars" data-idx="14">
+    <div style="display:flex; justify-content:flex-end; padding-right:2%;">
+      <div class="anim-item" style="text-align:right; margin-bottom:12px;">
+        <p style="font-size:clamp(13px,1.5vw,17px); color:rgba(255,255,255,0.75); font-family:'Noto Serif TC',serif;">
+          這一次，不是聽講師說。是你自己照。
+        </p>
+        <p class="t-sub-en" style="margin-top:4px;">This time, take a look for yourself.</p>
+      </div>
+    </div>
+    <div class="constellation-container anim-item" id="constellation-p13">
+      <svg class="constellation-svg" id="svg-p13" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <filter id="glow-filter-13">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <!-- "道" character watermark -->
+        <text x="500" y="275" text-anchor="middle" dominant-baseline="middle"
+          font-family="Noto Serif TC, serif" font-size="180" font-weight="200"
+          fill="rgba(255,255,255,0.04)">道</text>
+        <!-- Background star layer -->
+        <g id="bg-stars-p13" class="bg-star-layer"></g>
+        <!-- Mid-ground star layer -->
+        <g id="mid-stars-p13" class="mid-star-layer"></g>
+        <!-- Constellation lines -->
+        <g id="lines-p13" class="constellation-lines"></g>
+        <!-- Constellation stars -->
+        <g id="stars-p13" class="constellation-stars"></g>
+      </svg>
+      <div class="star-tooltip" id="tooltip-p13">
+        <div class="star-tooltip-zh" id="tooltip-p13-zh"></div>
+        <div class="star-tooltip-en" id="tooltip-p13-en"></div>
+      </div>
+      <!-- Category chips -->
+      <div class="category-chip ice anim-item" style="top:6%; left:4%;">内在心性 · Inner Virtue</div>
+      <div class="category-chip gold anim-item" style="top:6%; right:4%;">個人紀律 · Discipline</div>
+      <div class="category-chip lavender anim-item" style="bottom:6%; left:28%; transform:translateX(-50%);">團隊倫理 · Team Ethics</div>
+      <div class="category-chip anim-item" style="top:44%; left:22%; color:rgba(255,255,255,0.8);">驅動力 · Inner Strength</div>
+    </div>
+  </div>
+
+  <!-- P16: Your strongest -->
+  <div class="slide" data-bg="stars" data-idx="15">
+    <div class="glass reflect-card anim-item" style="max-width:540px; text-align:center; padding:clamp(32px,5vw,52px);">
+      <p style="font-family:'Noto Serif TC',serif;font-size:clamp(11px,1.2vw,14px);color:var(--text-dim);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:22px;">找你的最強一條</p>
+      <p style="font-family:'Noto Serif TC',serif;font-weight:300;font-size:clamp(18px,2.4vw,30px);line-height:1.8;margin-bottom:16px;">這十條當中，<br>哪一條是你覺得——</p>
+      <p style="font-family:'Noto Serif TC',serif;font-weight:400;font-size:clamp(20px,2.6vw,32px);color:var(--gold);margin-bottom:22px;">「這個，我有在做。」</p>
+      <div class="divider-center"></div>
+      <p style="font-family:'Noto Serif TC',serif;font-weight:300;font-size:clamp(13px,1.4vw,16px);color:rgba(255,255,255,0.6);line-height:1.9;margin:16px 0;">不用做到完美。<br>只要你有在認真面對它。</p>
+      <p style="font-family:Georgia,serif;font-style:italic;font-size:clamp(11px,1.1vw,13px);color:var(--text-dim);">Which one can you say: "This — I'm genuinely working on it."</p>
+    </div>
+  </div>
+
+  <!-- P17: Your hardest (最想逃開) -->
+  <div class="slide" data-bg="stars" data-idx="16">
+    <div class="glass reflect-card anim-item" style="max-width:540px; text-align:center; padding:clamp(32px,5vw,52px);">
+      <p style="font-family:'Noto Serif TC',serif;font-size:clamp(11px,1.2vw,14px);color:var(--text-dim);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:22px;">找你最想逃開的那一條</p>
+      <p style="font-family:'Noto Serif TC',serif;font-weight:300;font-size:clamp(18px,2.4vw,30px);line-height:1.8;margin-bottom:16px;">哪一條，是你現在<br>最不知道怎麼面對的？</p>
+      <div class="divider-center"></div>
+      <p style="font-family:'Noto Serif TC',serif;font-weight:300;font-size:clamp(14px,1.5vw,17px);color:rgba(255,255,255,0.65);margin:16px 0;">不是最失敗的——</p>
+      <p style="font-family:'Noto Serif TC',serif;font-weight:400;font-size:clamp(18px,2.4vw,28px);color:var(--gold);margin-bottom:22px;">是<em>最想逃開</em>的那一條。</p>
+      <p style="font-family:Georgia,serif;font-style:italic;font-size:clamp(11px,1.1vw,13px);color:var(--text-dim);line-height:1.7;">Not the one you've failed at —<br>the one you haven't been ready to face.</p>
+    </div>
+  </div>
+
+  <!-- P18: Activity -->
+  <div class="slide" data-bg="stars" data-idx="17">
+    <div class="glass activity-card">
+      <div class="activity-title anim-item">兩人一組 · <span style="color:var(--text-dim); font-weight:300;">In Pairs</span></div>
+      <div class="activity-step">
+        <div class="step-num anim-item">1</div>
+        <div class="step-content">
+          <p class="step-zh anim-item">說出你的「最強一條」——以及一個讓你這樣覺得的故事</p>
+          <p class="step-en anim-item">Share your strongest — with a story.</p>
+        </div>
+      </div>
+      <div class="activity-step">
+        <div class="step-num anim-item">2</div>
+        <div class="step-content">
+          <p class="step-zh anim-item">說出你的「最想逃開的那一條」——不需要解釋為什麼，只要說出來</p>
+          <p class="step-en anim-item">Name your hardest one — no explanation needed, just say it.</p>
+        </div>
+      </div>
+      <div class="activity-bottom anim-item">
+        不評價。只是見證彼此。<br>
+        No judgment. Just witness each other.
+      </div>
+    </div>
+  </div>
+
+  <!-- P19: QR Code — Survey (idx=18) -->
+  <div class="slide" data-bg="stars" data-idx="18">
+    <div class="glass" style="max-width:520px; text-align:center; padding:clamp(28px,4vw,48px); display:flex; flex-direction:column; align-items:center; gap:18px;">
+      <p class="t-chapter anim-item">匿名調查 · Anonymous Survey</p>
+      <p class="anim-item" style="font-family:'Noto Serif TC',serif; font-weight:300; font-size:clamp(16px,2vw,22px); line-height:1.8;">
+        掃描 QR Code，<br>選出你的兩顆星。
+      </p>
+      <div class="anim-item" id="qr-wrapper" style="background:white; padding:12px; border-radius:12px; line-height:0;">
+        <!-- QR code rendered by JS from SURVEY_URL in firebase-config.js -->
+        <img id="qr-img" src="" alt="QR Code" width="180" height="180" style="display:block;">
+      </div>
+      <p class="anim-item" style="font-size:clamp(11px,1.2vw,13px); color:rgba(255,255,255,0.4);">
+        匿名 · 即時同步 · 結果顯示在下一頁
+      </p>
+      <p class="anim-item" id="survey-url-display" style="font-size:11px; color:rgba(255,255,255,0.25); word-break:break-all;"></p>
+    </div>
+  </div>
+
+  <!-- P20: Live Results — star brightness = vote count (idx=19) -->
+  <div class="slide constellation-slide" data-bg="stars" data-idx="19">
+    <div class="constellation-header">
+      <p class="t-chapter anim-item">即時星圖 · Live Results</p>
+      <p class="anim-item" style="font-family:'Noto Serif TC',serif; font-size:clamp(13px,1.6vw,18px); color:rgba(255,255,255,0.55); margin-top:4px;">
+        越多人選的星越亮 · The more votes, the brighter the star
+      </p>
+    </div>
+    <div class="constellation-container anim-item" id="constellation-results">
+      <svg class="constellation-svg" id="svg-results" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <filter id="glow-filter-results">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <text x="500" y="275" text-anchor="middle" dominant-baseline="middle"
+          font-family="Noto Serif TC, serif" font-size="180" font-weight="200"
+          fill="rgba(255,255,255,0.04)">道</text>
+        <g id="bg-stars-results" class="bg-star-layer"></g>
+        <g id="mid-stars-results" class="mid-star-layer"></g>
+        <g id="results-lines" class="constellation-lines"></g>
+        <g id="results-stars" class="constellation-stars"></g>
+      </svg>
+      <!-- Legend -->
+      <div style="position:absolute; bottom:8%; left:50%; transform:translateX(-50%); display:flex; gap:24px; font-size:13px; color:rgba(255,255,255,0.55);">
+        <span style="color:#c9a96e;">✦ 最有在做</span>
+        <span style="color:#a8c5da;">❄ 最想逃開</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P21: Closing poem -->
+  <div class="slide" data-bg="stars" data-idx="20">
+    <div class="poem-content anim-item" style="max-width:680px; text-align:center;">
+      <p style="font-family:'Noto Serif TC',serif;font-weight:200;font-size:clamp(22px,3.2vw,42px);line-height:1.9;color:rgba(255,255,255,0.9);margin-bottom:16px;">
+        修成之前，我們都還在這裡。
+      </p>
+      <div class="divider-center" style="margin:20px auto;"></div>
+      <p style="font-family:'Noto Serif TC',serif;font-weight:300;font-size:clamp(17px,2.2vw,28px);line-height:1.9;color:rgba(255,255,255,0.72);margin-bottom:10px;">
+        在這裡，盡自己一份心力，
+      </p>
+      <p style="font-family:'Noto Serif TC',serif;font-weight:400;font-size:clamp(20px,2.8vw,36px);color:var(--gold);margin-bottom:28px;">
+        就是盡自己的天命。
+      </p>
+      <p style="font-family:Georgia,serif;font-style:italic;font-size:clamp(12px,1.3vw,16px);color:var(--text-dim);line-height:2;">
+        Before we arrive, we are all still here.<br>
+        And here — giving everything we have —<br>
+        is how we fulfill our purpose.
+      </p>
+    </div>
+  </div>
+
+  <!-- P22: End card -->
+  <div class="slide" data-bg="city" data-idx="21">
+    <div class="glass end-card">
+      <h1 class="t-main-zh serif anim-item" style="font-size:clamp(22px,3.2vw,42px);">現代修道人的核心理念</h1>
+      <p class="t-main-en anim-item" style="margin-top:6px;">Core Principles of the Modern Cultivators</p>
+      <div class="divider-center anim-item"></div>
+      <p class="t-sub-zh anim-item">十條綱目，不是你的成績單。</p>
+      <p class="t-sub-zh anim-item gold" style="font-size:clamp(16px,2vw,24px); margin-top:4px;">是你的地圖。</p>
+      <p class="t-sub-en anim-item" style="margin-top:12px;">Not a report card. A map.</p>
+    </div>
+  </div>
+
+</div><!-- /slides-wrapper -->
+
+<script src="animation.js"></script>
+<script src="navigation.js"></script>
+
+<!-- Firebase + Survey integration -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+// ─── QR code: rendered once firebase-config.js loads ───
+(function initQR() {
+  const img = document.getElementById('qr-img');
+  const urlEl = document.getElementById('survey-url-display');
+  if (!img || typeof SURVEY_URL === 'undefined') return;
+  img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=' + encodeURIComponent(SURVEY_URL);
+  if (urlEl) urlEl.textContent = SURVEY_URL;
+})();
+
+// ─── Results constellation ───
+const RES_PRINCIPLES = [
+  { id:1, zh:'戒慎驕矜',      en:'Guard Against Arrogance',    x:140, y:110, group:1 },
+  { id:4, zh:'廣闊的胸襟',    en:'A Generous Heart',           x:240, y:185, group:1 },
+  { id:7, zh:'修心',          en:'Cultivate the Heart',        x:110, y:270, group:1 },
+  { id:2, zh:'堅守原則',      en:'Hold Fast to Principles',    x:780, y:100, group:2 },
+  { id:6, zh:'對自己負責任',  en:'Take Responsibility',        x:880, y:185, group:2 },
+  { id:8, zh:'惜福',          en:'Cherish Your Blessings',     x:840, y:285, group:2 },
+  { id:9, zh:'三清四正，三省四勿', en:'Three Purities & Four Rectitudes', x:730, y:340, group:2 },
+  { id:3, zh:'各居其要，扶圓補缺', en:'Know Your Role, Fill the Gaps',   x:280, y:450, group:3 },
+  { id:10,zh:'尊師重道，聽師調遣', en:'Honor Teachers, Follow the Way',  x:500, y:490, group:3 },
+  { id:5, zh:'激發內在的力量', en:'Ignite Your Inner Strength', x:500, y:260, group:4 },
+];
+const RES_CONNECTIONS = [[1,4],[4,7],[7,1],[2,6],[6,8],[8,9],[2,9],[3,10]];
+const RES_COLORS      = { 1:'#a8c5da', 2:'#c9a96e', 3:'#d4c9e8', 4:'#fffae8' };
+
+let resultsBuilt = false;
+let resultsListener = null;
+const nodeMap = {}; // principleId → { goldCircle, iceCircle, outer }
+
+function buildResultsConstellation() {
+  if (resultsBuilt) return;
+  resultsBuilt = true;
+
+  addDepthStars('bg-stars-results', 'mid-stars-results');
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const linesG = document.getElementById('results-lines');
+  const starsG = document.getElementById('results-stars');
+
+  // Lines
+  RES_CONNECTIONS.forEach(([a, b]) => {
+    const pa = RES_PRINCIPLES.find(p => p.id === a);
+    const pb = RES_PRINCIPLES.find(p => p.id === b);
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', pa.x); line.setAttribute('y1', pa.y);
+    line.setAttribute('x2', pb.x); line.setAttribute('y2', pb.y);
+    line.setAttribute('stroke', RES_COLORS[pa.group]);
+    line.setAttribute('stroke-width', '1.5');
+    line.setAttribute('opacity', '0.4');
+    linesG.appendChild(line);
+  });
+
+  // Stars
+  RES_PRINCIPLES.forEach(p => {
+    const color = RES_COLORS[p.group];
+    const size  = p.group === 4 ? 10 : 6;
+    const g = document.createElementNS(ns, 'g');
+    g.setAttribute('transform', `translate(${p.x},${p.y})`);
+
+    // Gold glow ring (strongest votes) — starts invisible
+    const goldRing = document.createElementNS(ns, 'circle');
+    goldRing.setAttribute('r', size + 16);
+    goldRing.setAttribute('fill', '#c9a96e');
+    goldRing.setAttribute('opacity', '0');
+    goldRing.setAttribute('filter', 'url(#glow-filter-results)');
+    g.appendChild(goldRing);
+
+    // Ice glow ring (hardest votes) — starts invisible
+    const iceRing = document.createElementNS(ns, 'circle');
+    iceRing.setAttribute('r', size + 12);
+    iceRing.setAttribute('fill', '#a8c5da');
+    iceRing.setAttribute('opacity', '0');
+    iceRing.setAttribute('filter', 'url(#glow-filter-results)');
+    g.appendChild(iceRing);
+
+    // Outer glow
+    const outer = document.createElementNS(ns, 'circle');
+    outer.setAttribute('r', size + 6);
+    outer.setAttribute('fill', color);
+    outer.setAttribute('opacity', '0.12');
+    g.appendChild(outer);
+
+    // Core
+    const core = document.createElementNS(ns, 'circle');
+    core.setAttribute('r', size);
+    core.setAttribute('fill', color);
+    core.setAttribute('opacity', '0.5');
+    g.appendChild(core);
+
+    // Label
+    const label = document.createElementNS(ns, 'text');
+    label.setAttribute('y', size + 16);
+    label.setAttribute('text-anchor', 'middle');
+    label.setAttribute('fill', 'rgba(255,255,255,0.55)');
+    label.setAttribute('font-size', '11');
+    label.setAttribute('font-family', 'Noto Serif TC, serif');
+    label.textContent = p.zh.length > 6 ? p.zh.slice(0,6) + '…' : p.zh;
+    g.appendChild(label);
+
+    starsG.appendChild(g);
+    nodeMap[p.id] = { goldRing, iceRing, outer, core };
+  });
+}
+
+function startResultsListener() {
+  if (typeof FIREBASE_CONFIG === 'undefined') return;
+  if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+  const db = firebase.app().database
+    ? firebase.database()
+    : firebase.app().database();
+
+  resultsListener = firebase.database()
+    .ref('survey-results/responses')
+    .on('value', snap => {
+      const data = snap.val() || {};
+      const goldCount = {}; // principleId → count
+      const iceCount  = {};
+      let total = 0;
+      Object.values(data).forEach(r => {
+        if (r.strongest) goldCount[r.strongest] = (goldCount[r.strongest] || 0) + 1;
+        if (r.hardest)   iceCount[r.hardest]    = (iceCount[r.hardest]   || 0) + 1;
+        total++;
+      });
+      updateResultsDisplay(goldCount, iceCount, total);
+    });
+}
+
+function updateResultsDisplay(goldCount, iceCount, total) {
+  const maxVotes = Math.max(1, ...Object.values(goldCount), ...Object.values(iceCount));
+  RES_PRINCIPLES.forEach(p => {
+    const n = nodeMap[p.id];
+    if (!n) return;
+    const gv = goldCount[p.id] || 0;
+    const iv = iceCount[p.id]  || 0;
+    // Gold glow opacity: 0 → 0.55 proportional to votes
+    n.goldRing.setAttribute('opacity', (gv / maxVotes * 0.55).toFixed(3));
+    n.goldRing.setAttribute('r', String(18 + gv / maxVotes * 14));
+    // Ice glow opacity
+    n.iceRing.setAttribute('opacity', (iv / maxVotes * 0.55).toFixed(3));
+    n.iceRing.setAttribute('r', String(14 + iv / maxVotes * 14));
+    // Core brightness
+    const brightness = 0.5 + ((gv + iv) / (maxVotes * 2)) * 0.45;
+    n.core.setAttribute('opacity', brightness.toFixed(3));
+    n.outer.setAttribute('opacity', (0.12 + (gv + iv) / maxVotes * 0.2).toFixed(3));
+  });
+}
+
+// ─── Trigger when results slide becomes active ───
+// Patch goToSlide after navigation.js loads
+document.addEventListener('DOMContentLoaded', () => {
+  const origGoTo = window.goToSlide;
+  if (typeof origGoTo !== 'function') return;
+  window.goToSlide = function(idx) {
+    origGoTo(idx);
+    if (idx === 19) { // results slide index
+      buildResultsConstellation();
+      startResultsListener();
+    }
+  };
+});
+</script>
+</body>
+</html>

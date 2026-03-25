@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>十條星圖 · 匿名調查</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%; background: #06040f;
+  color: rgba(255,255,255,0.88);
+  font-family: 'Noto Sans TC', sans-serif;
+  overscroll-behavior: none;
+}
+
+/* ─── Layout ─── */
+#app { display: flex; flex-direction: column; min-height: 100svh; padding: 20px 16px 32px; }
+
+/* ─── Header ─── */
+.s-title {
+  font-family: 'Noto Serif TC', serif; font-weight: 300;
+  font-size: clamp(18px, 5vw, 24px); text-align: center;
+  margin-bottom: 4px; color: rgba(255,255,255,0.9);
+}
+.s-sub {
+  font-size: 12px; color: rgba(255,255,255,0.45);
+  text-align: center; margin-bottom: 16px; letter-spacing: 0.05em;
+}
+
+/* ─── Step tabs ─── */
+.step-tabs {
+  display: flex; gap: 8px; margin-bottom: 14px;
+}
+.step-tab {
+  flex: 1; padding: 10px 8px; border-radius: 8px; border: 1.5px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04); cursor: pointer;
+  text-align: center; transition: all 0.25s; user-select: none;
+}
+.step-tab.gold-tab { border-color: rgba(201,169,110,0.3); }
+.step-tab.ice-tab  { border-color: rgba(168,197,218,0.3); }
+.step-tab.active.gold-tab {
+  background: rgba(201,169,110,0.15); border-color: #c9a96e;
+  box-shadow: 0 0 12px rgba(201,169,110,0.2);
+}
+.step-tab.active.ice-tab {
+  background: rgba(168,197,218,0.15); border-color: #a8c5da;
+  box-shadow: 0 0 12px rgba(168,197,218,0.2);
+}
+.tab-icon { font-size: 18px; margin-bottom: 2px; }
+.tab-label { font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+.tab-selected {
+  font-family: 'Noto Serif TC', serif; font-size: 13px; font-weight: 400;
+  margin-top: 4px; min-height: 18px;
+  color: rgba(255,255,255,0.85); line-height: 1.3;
+}
+.gold-tab .tab-selected { color: #c9a96e; }
+.ice-tab  .tab-selected { color: #a8c5da; }
+
+/* ─── Constellation ─── */
+#constellation-wrap {
+  flex: 1; position: relative; min-height: 200px;
+  margin-bottom: 14px;
+}
+#survey-svg {
+  width: 100%; height: 100%;
+  display: block;
+}
+
+/* Star nodes */
+.s-node { transition: opacity 0.2s; }
+.s-node.selected-gold .s-core { fill: #c9a96e !important; }
+.s-node.selected-gold .s-outer { opacity: 0.4 !important; r: 18; }
+.s-node.selected-ice  .s-core { fill: #a8c5da !important; }
+.s-node.selected-ice  .s-outer { opacity: 0.4 !important; r: 18; }
+.s-node.dimmed { opacity: 0.35; }
+
+/* ─── Tooltip ─── */
+#s-tooltip {
+  position: fixed; background: rgba(12,10,24,0.92);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 8px;
+  padding: 8px 14px; pointer-events: none;
+  font-size: 13px; line-height: 1.6; opacity: 0; transition: opacity 0.15s;
+  max-width: 200px; transform: translate(-50%, -110%);
+  z-index: 100;
+}
+#s-tooltip.visible { opacity: 1; }
+.s-tip-zh { font-family: 'Noto Serif TC', serif; font-size: 15px; }
+.s-tip-en { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+/* ─── Submit ─── */
+#submit-btn {
+  width: 100%; padding: 14px; border-radius: 10px; border: none;
+  background: linear-gradient(135deg, rgba(201,169,110,0.8), rgba(168,197,218,0.6));
+  color: #06040f; font-family: 'Noto Serif TC', serif; font-size: 16px;
+  font-weight: 400; cursor: pointer; transition: opacity 0.2s;
+}
+#submit-btn:disabled { opacity: 0.3; cursor: default; }
+#submit-btn:not(:disabled):active { opacity: 0.8; }
+
+/* ─── Done screen ─── */
+#done-screen {
+  display: none; position: fixed; inset: 0;
+  background: #06040f; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 32px;
+}
+#done-screen.show { display: flex; }
+.done-star { font-size: 48px; margin-bottom: 20px; }
+.done-zh {
+  font-family: 'Noto Serif TC', serif; font-size: 22px;
+  font-weight: 300; margin-bottom: 10px;
+}
+.done-en { font-size: 14px; color: rgba(255,255,255,0.45); }
+
+/* ─── Hint ─── */
+.hint-bar {
+  text-align: center; font-size: 12px;
+  color: rgba(255,255,255,0.4); margin-bottom: 10px; line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <p class="s-title">十條星圖</p>
+  <p class="s-sub">匿名調查 · Anonymous Survey</p>
+
+  <!-- Step tabs -->
+  <div class="step-tabs">
+    <div class="step-tab gold-tab active" id="tab-gold" onclick="setMode('gold')">
+      <div class="tab-icon">✦</div>
+      <div class="tab-label">我最有在做的</div>
+      <div class="tab-selected" id="gold-selected">點下面的星來選 →</div>
+    </div>
+    <div class="step-tab ice-tab" id="tab-ice" onclick="setMode('ice')">
+      <div class="tab-icon">❄</div>
+      <div class="tab-label">我最想逃開的</div>
+      <div class="tab-selected" id="ice-selected">點下面的星來選 →</div>
+    </div>
+  </div>
+
+  <p class="hint-bar" id="hint-bar">點選左側標籤，再點星球來選擇</p>
+
+  <!-- Constellation -->
+  <div id="constellation-wrap">
+    <svg id="survey-svg" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet">
+      <text x="500" y="275" text-anchor="middle" dominant-baseline="middle"
+        font-family="Noto Serif TC, serif" font-size="200" font-weight="200"
+        fill="rgba(255,255,255,0.03)">道</text>
+      <g id="s-lines"></g>
+      <g id="s-stars"></g>
+    </svg>
+    <div id="s-tooltip">
+      <div class="s-tip-zh" id="s-tip-zh"></div>
+      <div class="s-tip-en" id="s-tip-en"></div>
+    </div>
+  </div>
+
+  <button id="submit-btn" disabled onclick="submitSurvey()">送出 · Submit</button>
+</div>
+
+<!-- Done screen -->
+<div id="done-screen">
+  <div class="done-star">✦</div>
+  <p class="done-zh">已記錄，謝謝你。</p>
+  <p class="done-en">Your response has been recorded anonymously.</p>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+// ─── Firebase init ───
+firebase.initializeApp(FIREBASE_CONFIG);
+const db = firebase.database();
+
+// ─── Constellation data (same as animation.js) ───
+const principles = [
+  { id:1, zh:'戒慎驕矜', en:'Guard Against Arrogance',      x:140, y:110, group:1 },
+  { id:4, zh:'廣闊的胸襟', en:'A Generous Heart',           x:240, y:185, group:1 },
+  { id:7, zh:'修心',      en:'Cultivate the Heart',          x:110, y:270, group:1 },
+  { id:2, zh:'堅守原則',  en:'Hold Fast to Principles',      x:780, y:100, group:2 },
+  { id:6, zh:'對自己負責任', en:'Take Responsibility',       x:880, y:185, group:2 },
+  { id:8, zh:'惜福',      en:'Cherish Your Blessings',       x:840, y:285, group:2 },
+  { id:9, zh:'三清四正，三省四勿', en:'Three Purities & Four Rectitudes', x:730, y:340, group:2 },
+  { id:3, zh:'各居其要，扶圓補缺', en:'Know Your Role, Fill the Gaps', x:280, y:450, group:3 },
+  { id:10,zh:'尊師重道，聽師調遣', en:'Honor Teachers, Follow the Way', x:500, y:490, group:3 },
+  { id:5, zh:'激發內在的力量', en:'Ignite Your Inner Strength', x:500, y:260, group:4 },
+];
+const connections = [
+  [1,4],[4,7],[7,1],
+  [2,6],[6,8],[8,9],[2,9],
+  [3,10],
+];
+const groupColors = { 1:'#a8c5da', 2:'#c9a96e', 3:'#d4c9e8', 4:'#fffae8' };
+
+// ─── State ───
+let mode = 'gold'; // 'gold' (strongest) | 'ice' (hardest)
+let goldId = null; // selected principle id for strongest
+let iceId  = null; // selected principle id for hardest
+const tooltip = document.getElementById('s-tooltip');
+
+// ─── Build SVG ───
+const ns = 'http://www.w3.org/2000/svg';
+const linesG = document.getElementById('s-lines');
+const starsG = document.getElementById('s-stars');
+
+// Lines
+connections.forEach(([a, b]) => {
+  const pa = principles.find(p => p.id === a);
+  const pb = principles.find(p => p.id === b);
+  const line = document.createElementNS(ns, 'line');
+  line.setAttribute('x1', pa.x); line.setAttribute('y1', pa.y);
+  line.setAttribute('x2', pb.x); line.setAttribute('y2', pb.y);
+  line.setAttribute('stroke', groupColors[pa.group]);
+  line.setAttribute('stroke-width', '1.5');
+  line.setAttribute('opacity', '0.35');
+  linesG.appendChild(line);
+});
+
+// Stars
+principles.forEach(p => {
+  const color = groupColors[p.group];
+  const size  = p.group === 4 ? 10 : 6;
+  const g = document.createElementNS(ns, 'g');
+  g.setAttribute('class', 's-node');
+  g.dataset.id = p.id;
+  g.setAttribute('transform', `translate(${p.x},${p.y})`);
+
+  // Large invisible touch target
+  const hit = document.createElementNS(ns, 'circle');
+  hit.setAttribute('r', '32');
+  hit.setAttribute('fill', 'transparent');
+  g.appendChild(hit);
+
+  // Outer glow
+  const outer = document.createElementNS(ns, 'circle');
+  outer.setAttribute('class', 's-outer');
+  outer.setAttribute('r', size + 6);
+  outer.setAttribute('fill', color);
+  outer.setAttribute('opacity', '0.12');
+  g.appendChild(outer);
+
+  // Mid ring
+  const mid = document.createElementNS(ns, 'circle');
+  mid.setAttribute('r', size + 1.5);
+  mid.setAttribute('fill', 'none');
+  mid.setAttribute('stroke', color);
+  mid.setAttribute('stroke-width', '0.5');
+  mid.setAttribute('opacity', '0.4');
+  g.appendChild(mid);
+
+  // Core
+  const core = document.createElementNS(ns, 'circle');
+  core.setAttribute('class', 's-core');
+  core.setAttribute('r', size);
+  core.setAttribute('fill', color);
+  core.setAttribute('opacity', '0.85');
+  g.appendChild(core);
+
+  // Label (group 4 only)
+  if (p.group === 4) {
+    const label = document.createElementNS(ns, 'text');
+    label.setAttribute('y', size + 18);
+    label.setAttribute('text-anchor', 'middle');
+    label.setAttribute('fill', 'rgba(255,255,255,0.6)');
+    label.setAttribute('font-size', '12');
+    label.setAttribute('font-family', 'Noto Serif TC, serif');
+    label.textContent = p.zh;
+    g.appendChild(label);
+  }
+
+  // Touch / click
+  g.addEventListener('click', () => selectStar(p));
+
+  // Tooltip
+  g.addEventListener('mouseenter', () => showTooltip(p, g));
+  g.addEventListener('mouseleave', () => { tooltip.classList.remove('visible'); });
+
+  starsG.appendChild(g);
+});
+
+// ─── Interaction ───
+function setMode(m) {
+  mode = m;
+  document.getElementById('tab-gold').classList.toggle('active', m === 'gold');
+  document.getElementById('tab-ice').classList.toggle('active', m === 'ice');
+  updateHint();
+}
+
+function updateHint() {
+  const hints = {
+    gold: '現在選擇：✦ 我最有在做的那一條',
+    ice:  '現在選擇：❄ 我最想逃開的那一條',
+  };
+  document.getElementById('hint-bar').textContent = hints[mode];
+}
+updateHint();
+
+function selectStar(p) {
+  if (mode === 'gold') {
+    goldId = p.id;
+    document.getElementById('gold-selected').textContent = p.zh;
+  } else {
+    iceId = p.id;
+    document.getElementById('ice-selected').textContent = p.zh;
+  }
+  renderSelections();
+  checkSubmit();
+}
+
+function renderSelections() {
+  document.querySelectorAll('.s-node').forEach(g => {
+    const id = parseInt(g.dataset.id);
+    g.classList.remove('selected-gold', 'selected-ice', 'dimmed');
+    if (id === goldId) g.classList.add('selected-gold');
+    else if (id === iceId) g.classList.add('selected-ice');
+  });
+}
+
+function checkSubmit() {
+  document.getElementById('submit-btn').disabled = !(goldId && iceId);
+}
+
+function showTooltip(p, g) {
+  const svgRect = document.getElementById('survey-svg').getBoundingClientRect();
+  const scaleX  = svgRect.width  / 1000;
+  const scaleY  = svgRect.height / 560;
+  tooltip.style.left = (svgRect.left + p.x * scaleX) + 'px';
+  tooltip.style.top  = (svgRect.top  + p.y * scaleY) + 'px';
+  document.getElementById('s-tip-zh').textContent = p.zh;
+  document.getElementById('s-tip-en').textContent = p.en;
+  tooltip.classList.add('visible');
+}
+
+// ─── Firebase submit ───
+function getOrCreateUserId() {
+  let uid = localStorage.getItem('survey_uid');
+  if (!uid) {
+    uid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    localStorage.setItem('survey_uid', uid);
+  }
+  return uid;
+}
+
+function submitSurvey() {
+  if (!goldId || !iceId) return;
+  const uid = getOrCreateUserId();
+  db.ref('survey-results/responses/' + uid).set({
+    strongest: goldId,
+    hardest:   iceId,
+    ts: Date.now(),
+  }).then(() => {
+    document.getElementById('done-screen').classList.add('show');
+  }).catch(err => {
+    alert('送出失敗，請確認網路連線。\n' + err.message);
+  });
+}
+</script>
+</body>
+</html>
