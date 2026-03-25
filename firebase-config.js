@@ -17,4 +17,4 @@ const FIREBASE_CONFIG = {
 
 // 調查頁面的公開網址（deploy 到 GitHub Pages 後填入）
 // 格式：https://你的帳號.github.io/你的repo名/survey.html
-const SURVEY_URL = "https://YOUR_USERNAME.github.io/YOUR_REPO/survey.html";
+const SURVEY_URL = "https://hallowjason.github.io/vote-presentation/survey.html";
