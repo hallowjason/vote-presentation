@@ -35,6 +35,9 @@ function goToSlide(idx) {
   current = idx;
   next.classList.add('active');
 
+  // Reset dialogue step progression when entering any slide
+  next.querySelectorAll('.dialogue-row').forEach(r => r.classList.remove('revealed'));
+
   // Reset anim items so stagger re-triggers
   const animItems = next.querySelectorAll('.anim-item');
   animItems.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(18px)'; });
@@ -67,7 +70,16 @@ function goToSlide(idx) {
 }
 
 function next() {
+  if (isTransitioning) return;
   const currentSlide = slides[current];
+  // Within-slide step progression for dialogue slides
+  if (currentSlide.classList.contains('dialogue-slide')) {
+    const nextHidden = currentSlide.querySelector('.dialogue-row:not(.revealed)');
+    if (nextHidden) {
+      nextHidden.classList.add('revealed');
+      return;
+    }
+  }
   const dataNext = currentSlide.dataset.next;
   if (dataNext !== undefined) {
     goToSlide(parseInt(dataNext));
