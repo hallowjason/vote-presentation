@@ -112,9 +112,9 @@
       </div>
       <!-- Category chips — clickable -->
       <div class="category-chip clickable-chip ice anim-item" data-target="7" style="top:8%; left:4%;">内在心性 · Inner Virtue →</div>
-      <div class="category-chip clickable-chip gold anim-item" data-target="9" style="top:8%; right:4%;">個人紀律 · Discipline →</div>
-      <div class="category-chip clickable-chip lavender anim-item" data-target="10" style="bottom:8%; left:28%; transform:translateX(-50%);">團隊倫理 · Team Ethics →</div>
-      <div class="category-chip clickable-chip anim-item" data-target="11" style="top:44%; left:22%; color:rgba(255,255,255,0.8);">驅動力 · Driving Force →</div>
+      <div class="category-chip clickable-chip gold anim-item" data-target="10" style="top:8%; right:4%;">個人紀律 · Discipline →</div>
+      <div class="category-chip clickable-chip lavender anim-item" data-target="11" style="bottom:8%; left:28%; transform:translateX(-50%);">團隊倫理 · Team Ethics →</div>
+      <div class="category-chip clickable-chip anim-item" data-target="12" style="top:44%; left:22%; color:rgba(255,255,255,0.8);">驅動力 · Driving Force →</div>
       <!-- Skip/continue button -->
       <div style="position:absolute; bottom:0px; right:0px;">
         <button class="skip-btn" id="btn-skip">繼續按順序瀏覽 →</button>
@@ -248,8 +248,40 @@
     </div>
   </div>
 
-  <!-- P9: 廣闊的胸襟 (idx=8, group1 target continues) -->
+  <!-- P8b: 戒慎驕矜 · 謙遜的力量 (idx=8) -->
   <div class="slide story-slide" data-bg="city" data-idx="8">
+    <div class="story-layout">
+      <div class="principle-label anim-item">
+        <div class="principle-number">Principle 01</div>
+        <div class="principle-zh">戒慎驕矜</div>
+        <div class="principle-en">Guard Against Arrogance</div>
+      </div>
+      <div>
+        <div class="glass story-card">
+          <p class="story-line anim-item bold gold" style="font-size:clamp(16px,2vw,22px); margin-bottom:6px;">謙遜，是成功與失敗的融合。</p>
+          <p class="story-line anim-item">謙遜是寧靜之道，也是情緒的調和器——</p>
+          <p class="story-line anim-item" style="color:var(--text-dim);">讓你不至高傲，不至凌越他人。</p>
+          <div class="story-spacer anim-item"></div>
+          <p class="story-line anim-item">一旦驕傲——</p>
+          <p class="story-line anim-item">在該同意時，也會固執；</p>
+          <p class="story-line anim-item">失去客觀的標準，拒絕朋友的忠告與他人的指引；</p>
+          <p class="story-line anim-item bold ice">偏離熟悉的路徑，走向偏移，迷失自己。</p>
+          <div class="story-en anim-item">
+            Humility is the fusion of success and failure — it keeps you balanced.<br>
+            It is the path of stillness, the regulator of emotion.<br>
+            Once pride takes hold: you grow stubborn, lose objectivity,<br>
+            reject good counsel — and drift from the path you once knew.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:20px; left:28px;">
+      <button class="skip-btn" onclick="goToSlide(6)" style="opacity:0.65; font-size:13px;">← 返回星群圖</button>
+    </div>
+  </div>
+
+  <!-- P9: 廣闊的胸襟 (idx=9, group1 target continues) -->
+  <div class="slide story-slide" data-bg="city" data-idx="9">
     <div class="story-layout">
       <div class="principle-label anim-item">
         <div class="principle-number">Principle 04</div>
@@ -278,8 +310,8 @@
     </div>
   </div>
 
-  <!-- P10: 堅守原則 (idx=9, group2 target) -->
-  <div class="slide story-slide" data-bg="city" data-idx="9">
+  <!-- P10: 堅守原則 (idx=10, group2 target) -->
+  <div class="slide story-slide" data-bg="city" data-idx="10">
     <div class="story-layout">
       <div class="principle-label anim-item">
         <div class="principle-number">Principle 02</div>
@@ -310,8 +342,8 @@
     </div>
   </div>
 
-  <!-- P11: 各居其要 (idx=10, group3 target) -->
-  <div class="slide story-slide" data-bg="city" data-idx="10">
+  <!-- P11: 各居其要 (idx=11, group3 target) -->
+  <div class="slide story-slide" data-bg="city" data-idx="11">
     <div class="story-layout">
       <div class="principle-label anim-item">
         <div class="principle-number">Principle 03</div>
@@ -341,8 +373,8 @@
     </div>
   </div>
 
-  <!-- P12: Bridge (idx=11, group4 target) -->
-  <div class="slide story-slide" data-bg="city" data-idx="11">
+  <!-- P12: Bridge (idx=12, group4 target) -->
+  <div class="slide story-slide" data-bg="city" data-idx="12">
     <div class="story-layout">
       <div class="principle-label anim-item">
         <div class="principle-number">橋樑 · Bridge</div>
@@ -372,8 +404,8 @@
     </div>
   </div>
 
-  <!-- P13: 對自己負責任 (idx=12, group2) -->
-  <div class="slide story-slide" data-bg="city" data-idx="12">
+  <!-- P13: 對自己負責任 (idx=13, group2) -->
+  <div class="slide story-slide" data-bg="city" data-idx="13">
     <div class="story-layout">
       <div class="principle-label anim-item">
         <div class="principle-number">Principle 06</div>
@@ -411,7 +443,7 @@
   </div>
 
   <!-- P14: Still on the path -->
-  <div class="slide" data-bg="city" data-idx="13">
+  <div class="slide" data-bg="city" data-idx="14">
     <div class="path-content">
       <p class="anim-item" style="font-size:clamp(13px,1.4vw,16px); color:var(--text-dim); margin-bottom:16px;">我雖然是講師。</p>
       <p class="t-main-zh serif anim-item" style="font-size:clamp(20px,3vw,38px);">但這十條，我沒有全部做到。</p>
@@ -423,7 +455,7 @@
   </div>
 
   <!-- P13: Constellation — audience reflection -->
-  <div class="slide constellation-slide" data-bg="stars" data-idx="14">
+  <div class="slide constellation-slide" data-bg="stars" data-idx="15">
     <div style="display:flex; justify-content:flex-end; padding-right:2%;">
       <div class="anim-item" style="text-align:right; margin-bottom:12px;">
         <p style="font-size:clamp(13px,1.5vw,17px); color:rgba(255,255,255,0.75); font-family:'Noto Serif TC',serif;">
@@ -469,7 +501,7 @@
   </div>
 
   <!-- P16: Your strongest -->
-  <div class="slide" data-bg="stars" data-idx="15">
+  <div class="slide" data-bg="stars" data-idx="16">
     <div class="glass reflect-card anim-item" style="max-width:540px; text-align:center; padding:clamp(32px,5vw,52px);">
       <p style="font-family:'Noto Serif TC',serif;font-size:clamp(11px,1.2vw,14px);color:var(--text-dim);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:22px;">找你的最強一條</p>
       <p style="font-family:'Noto Serif TC',serif;font-weight:300;font-size:clamp(18px,2.4vw,30px);line-height:1.8;margin-bottom:16px;">這十條當中，<br>哪一條是你覺得——</p>
@@ -481,7 +513,7 @@
   </div>
 
   <!-- P17: Your hardest (最想逃開) -->
-  <div class="slide" data-bg="stars" data-idx="16">
+  <div class="slide" data-bg="stars" data-idx="17">
     <div class="glass reflect-card anim-item" style="max-width:540px; text-align:center; padding:clamp(32px,5vw,52px);">
       <p style="font-family:'Noto Serif TC',serif;font-size:clamp(11px,1.2vw,14px);color:var(--text-dim);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:22px;">找你最想逃開的那一條</p>
       <p style="font-family:'Noto Serif TC',serif;font-weight:300;font-size:clamp(18px,2.4vw,30px);line-height:1.8;margin-bottom:16px;">哪一條，是你現在<br>最不知道怎麼面對的？</p>
@@ -493,7 +525,7 @@
   </div>
 
   <!-- P18: Activity -->
-  <div class="slide" data-bg="stars" data-idx="17">
+  <div class="slide" data-bg="stars" data-idx="18">
     <div class="glass activity-card">
       <div class="activity-title anim-item">兩人一組 · <span style="color:var(--text-dim); font-weight:300;">In Pairs</span></div>
       <div class="activity-step">
@@ -517,8 +549,8 @@
     </div>
   </div>
 
-  <!-- P19: QR Code — Survey (idx=18) -->
-  <div class="slide" data-bg="stars" data-idx="18">
+  <!-- P19: QR Code — Survey (idx=19) -->
+  <div class="slide" data-bg="stars" data-idx="19">
     <div class="glass" style="max-width:520px; text-align:center; padding:clamp(28px,4vw,48px); display:flex; flex-direction:column; align-items:center; gap:18px;">
       <p class="t-chapter anim-item">匿名調查 · Anonymous Survey</p>
       <p class="anim-item" style="font-family:'Noto Serif TC',serif; font-weight:300; font-size:clamp(16px,2vw,22px); line-height:1.8;">
@@ -535,8 +567,8 @@
     </div>
   </div>
 
-  <!-- P20: Live Results — star brightness = vote count (idx=19) -->
-  <div class="slide constellation-slide" data-bg="stars" data-idx="19">
+  <!-- P20: Live Results — star brightness = vote count (idx=20) -->
+  <div class="slide constellation-slide" data-bg="stars" data-idx="20">
     <div class="constellation-header">
       <p class="t-chapter anim-item">即時星圖 · Live Results</p>
       <p class="anim-item" style="font-family:'Noto Serif TC',serif; font-size:clamp(13px,1.6vw,18px); color:rgba(255,255,255,0.55); margin-top:4px;">
@@ -571,7 +603,7 @@
   </div>
 
   <!-- P21: Closing poem -->
-  <div class="slide" data-bg="stars" data-idx="20">
+  <div class="slide" data-bg="stars" data-idx="21">
     <div class="poem-content anim-item" style="max-width:680px; text-align:center;">
       <p style="font-family:'Noto Serif TC',serif;font-weight:200;font-size:clamp(22px,3.2vw,42px);line-height:1.9;color:rgba(255,255,255,0.9);margin-bottom:16px;">
         修成之前，我們都還在這裡。
@@ -592,7 +624,7 @@
   </div>
 
   <!-- P22: End card -->
-  <div class="slide" data-bg="city" data-idx="21">
+  <div class="slide" data-bg="city" data-idx="22">
     <div class="glass end-card">
       <h1 class="t-main-zh serif anim-item" style="font-size:clamp(22px,3.2vw,42px);">現代修道人的核心理念</h1>
       <p class="t-main-en anim-item" style="margin-top:6px;">Core Principles of the Modern Cultivators</p>
@@ -767,7 +799,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof origGoTo !== 'function') return;
   window.goToSlide = function(idx) {
     origGoTo(idx);
-    if (idx === 19) { // results slide index
+    if (idx === 20) { // results slide index
       buildResultsConstellation();
       startResultsListener();
     }
