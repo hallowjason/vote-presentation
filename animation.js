@@ -311,11 +311,15 @@ function buildConstellation(svgId, tooltipId, containerId, slideMap) {
       const scaleX = svgRect.width / 1000;
       const scaleY = svgRect.height / 560;
 
-      const tx = svgRect.left - containerRect.left + p.x * scaleX;
+      let tx = svgRect.left - containerRect.left + p.x * scaleX;
       const ty = svgRect.top - containerRect.top + p.y * scaleY;
 
+      // Keep tooltip within container horizontally
+      const edgeMargin = 130;
+      tx = Math.max(edgeMargin, Math.min(containerRect.width - edgeMargin, tx));
+
       tooltip.style.left = tx + 'px';
-      tooltip.style.top = ty + 'px';
+      tooltip.style.top = (ty + (size + 6) * scaleY + 8) + 'px'; // below the star
       document.getElementById(tooltipId + '-zh').textContent = p.zh;
       document.getElementById(tooltipId + '-en').textContent = p.en;
       tooltip.classList.add('visible');
